@@ -28,3 +28,19 @@ void VerifyPictureRequest::set(const QString& uuid, const bool isGood){
 VerifyPictureRequest::~VerifyPictureRequest(){
 }
 
+
+
+DeletePictureRequest::DeletePictureRequest()
+    : ClientAuthRequest()
+{
+    QUrl url(m_baseUrl + "unverified/donation");
+    m_request->setUrl(url);
+}
+
+void DeletePictureRequest::set(const QString& uuid){
+    QUrl url(m_baseUrl + "unverified/donation/" + uuid + "/delete");
+    m_request->setUrl(url);
+}
+
+DeletePictureRequest::~DeletePictureRequest(){
+}

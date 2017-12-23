@@ -10,5 +10,6 @@
         <file>source/qml/basiccomponents/ProgressLoadingBar.qml</file>
         <file>source/qml/basiccomponents/Toast.qml</file>
         <file>source/qml/items/VerifyPictureItem.qml</file>
+        <file>source/qml/basiccomponents/MaterialDialog.qml</file>
     </qresource>
 </RCC>

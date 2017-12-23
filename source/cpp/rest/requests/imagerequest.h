@@ -20,5 +20,12 @@ public:
     ~VerifyPictureRequest();
 };
 
+class DeletePictureRequest : public ClientAuthRequest{
+    Q_OBJECT
+public:
+    DeletePictureRequest();
+    Q_INVOKABLE void set(const QString& uuid);
+    ~DeletePictureRequest();
+};
 
 #endif /*_IMAGEREQUEST_H_*/

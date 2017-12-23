@@ -32,6 +32,7 @@ Item{
         signal getAllUnverifiedPictures();
         signal getUnverifiedPicture(string uuid);
         signal verifyPicture(bool valid);
+        signal deletePicture();
 
         onVerifyPicture: {
             progressLoadingBar.visible = true;
@@ -50,6 +51,15 @@ Item{
             restAPI.get(getAllUnverifiedPicturesRequest);
         }
 
+        onDeletePicture: {
+            progressLoadingBar.visible = true;
+            var deletePictureRequest = Qt.createQmlObject('import com.imagemonkeyadmin.imagemonkeyadmin 1.0; DeletePictureRequest{}',
+                                                   restAPI);
+            deletePictureRequest.set(internal.unverifiedDonations[(internal.currentUnverifiedDonationIdx - 1)]["uuid"]);
+            internal.pendingRequests[deletePictureRequest.getUniqueRequestId()] = "delete";
+            restAPI.post(deletePictureRequest);
+        }
+
     }
 
     function getNextUnverifiedPicture(){
@@ -61,12 +71,14 @@ Item{
                 yesButton.visible = true;
                 noButton.visible = true;
                 label.visible = true;
+                deleteButton.visible = true;
             }
             else {
                 yesButton.visible = false;
                 noButton.visible = false;
                 label.visible = false;
                 img.visible = false;
+                deleteButton.visible = false;
             }
         }
     }
@@ -84,6 +96,10 @@ Item{
                         getNextUnverifiedPicture();
                     }
                     else if(reqType === "verify"){
+                        progressLoadingBar.visible = false;
+                        getNextUnverifiedPicture();
+                    }
+                    else if(reqType === "delete"){
                         progressLoadingBar.visible = false;
                         getNextUnverifiedPicture();
                     }
@@ -120,9 +136,40 @@ Item{
         font.bold: true
     }
 
+    Button{
+        id: deleteButton
+        anchors.top: header.bottom
+        anchors.topMargin: 5 * settings.pixelDensity
+        anchors.right: parent.right
+        anchors.rightMargin: 5 * settings.pixelDensity
+        text: qsTr("DELETE")
+        visible: false
+        onClicked: {
+            confirmDeletionDlg.open();
+        }
+    }
+
+    MaterialDialog{
+        id: confirmDeletionDlg
+        x: (parent.width - width)/2
+        y: (parent.height - height)/2
+        width: parent.width/2
+        height: 50 * settings.pixelDensity
+        headerText: qsTr("Are you sure?")
+        firstButtonText: qsTr("YES")
+        secondButtonText: qsTr("DISCARD")
+        onFirstButtonClicked: {
+            restAPI.deletePicture();
+            confirmDeletionDlg.close();
+        }
+        onSecondButtonClicked: {
+            confirmDeletionDlg.close();
+        }
+    }
+
     Image{
         id: img
-        anchors.top: header.bottom
+        anchors.top: deleteButton.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: label.top

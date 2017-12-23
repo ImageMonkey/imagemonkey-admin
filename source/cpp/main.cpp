@@ -107,6 +107,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     qmlRegisterType<VerifyPictureRequest>(g_uri.toStdString().c_str(), 1, 0, "VerifyPictureRequest");
+    qmlRegisterType<DeletePictureRequest>(g_uri.toStdString().c_str(), 1, 0, "DeletePictureRequest");
+
     qmlRegisterType<GetAllUnverifiedPicturesRequest>(g_uri.toStdString().c_str(), 1, 0, "GetAllUnverifiedPicturesRequest");
     qmlRegisterType<HttpsRequestWorker>(g_uri.toStdString().c_str(), 1, 0, "HttpsRequestWorker");
     qmlRegisterType<HttpsRequestWorkerThread>(g_uri.toStdString().c_str(), 1, 0, "HttpsRequestWorkerThread");
