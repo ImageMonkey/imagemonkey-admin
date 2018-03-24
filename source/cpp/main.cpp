@@ -11,46 +11,6 @@
 #include <QtAndroid>
 #endif
 
-/*
-class CustomNetworkAccessManager : public QNetworkAccessManager {
-        Q_OBJECT
-public:
-    CustomNetworkAccessManager(QObject* parent = 0)
-        : QNetworkAccessManager(parent)
-    {
-    }
-    CustomNetworkAccessManager::~CustomNetworkAccessManager(){
-
-    }
-
-protected:
-    QNetworkReply *createRequest(Operation op, const QNetworkRequest &req, QIODevice * outgoingData=0)
-    {
-
-        QNetworkRequest newReq(req);
-        newReq.setRawHeader("X-Client-Id", X_CLIENT_ID.toUtf8());
-        newReq.setRawHeader("X-Client-Secret", X_CLIENT_SECRET.toUtf8());
-
-        QNetworkReply *reply = QNetworkAccessManager::createRequest(op, newReq, outgoingData);
-        return reply;
-    }
-
-//private:
-//    QString __userAgent;
-};
-
-class CustomNetworkAccessManagerFactory : public QQmlNetworkAccessManagerFactory
-{
-public:
-    virtual QNetworkAccessManager *create(QObject *parent);
-};
-
-QNetworkAccessManager* CustomNetworkAccessManagerFactory::create(QObject *parent)
-{
-    CustomNetworkAccessManager* manager = new CustomNetworkAccessManager(parent);
-
-    return manager;
-}*/
 
 int main(int argc, char *argv[])
 {

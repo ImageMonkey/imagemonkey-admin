@@ -9,6 +9,7 @@ class GetAllUnverifiedPicturesRequest : public ClientAuthRequest{
     Q_OBJECT
 public:
     GetAllUnverifiedPicturesRequest();
+    Q_INVOKABLE void setFilter(const QString& imageProvider);
     ~GetAllUnverifiedPicturesRequest();
 };
 

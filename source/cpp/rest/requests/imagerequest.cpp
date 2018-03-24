@@ -10,6 +10,11 @@ GetAllUnverifiedPicturesRequest::GetAllUnverifiedPicturesRequest()
     m_request->setUrl(url);
 }
 
+void GetAllUnverifiedPicturesRequest::setFilter(const QString &imageProvider){
+    QUrl url(m_baseUrl + "unverified/donation?image_provider=" + imageProvider);
+    m_request->setUrl(url);
+}
+
 GetAllUnverifiedPicturesRequest::~GetAllUnverifiedPicturesRequest(){
 }
 

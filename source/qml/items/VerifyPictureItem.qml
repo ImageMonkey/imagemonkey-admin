@@ -11,12 +11,17 @@ Item{
 
     onIsActive: {
         if(!internal.initialized){
-            internal.initialized = true;
-            internal.pendingRequests = {}
-            internal.unverifiedDonations = []
-            internal.currentUnverifiedDonationIdx = 0;
+            resetInternalState();
+            internal.imageProvider = "all";
             restAPI.getAllUnverifiedPictures();
         }
+    }
+
+    function resetInternalState() {
+        internal.initialized = true;
+        internal.pendingRequests = {}
+        internal.unverifiedDonations = []
+        internal.currentUnverifiedDonationIdx = 0;
     }
 
     QtObject{
@@ -25,6 +30,7 @@ Item{
         property bool initialized: false;
         property var unverifiedDonations;
         property int currentUnverifiedDonationIdx : 0;
+        property string imageProvider: "all";
     }
 
     HttpsRequestWorkerThread{
@@ -48,6 +54,11 @@ Item{
             var getAllUnverifiedPicturesRequest = Qt.createQmlObject('import com.imagemonkeyadmin.imagemonkeyadmin 1.0; GetAllUnverifiedPicturesRequest{}',
                                                    restAPI);
             internal.pendingRequests[getAllUnverifiedPicturesRequest.getUniqueRequestId()] = "allUnverified";
+
+            if(internal.imageProvider !== "all"){
+                getAllUnverifiedPicturesRequest.setFilter(internal.imageProvider);
+            }
+
             restAPI.get(getAllUnverifiedPicturesRequest);
         }
 
@@ -193,6 +204,19 @@ Item{
         visible: false
         onClicked: {
             restAPI.verifyPicture(true);
+        }
+    }
+
+    ComboBox{
+        id: imageProviderSelection
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: header.bottom
+        anchors.topMargin: 5 * settings.pixelDensity
+        model: ["all", "labelme"]
+        onCurrentIndexChanged: {
+            internal.imageProvider = imageProviderSelection.textAt(currentIndex);
+            resetInternalState();
+            restAPI.getAllUnverifiedPictures();
         }
     }
 

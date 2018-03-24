@@ -5,7 +5,7 @@ android{
 }
 
 #LOCAL, TEST, PRODUCTION
-_EXECUTIONTARGET_ = "PRODUCTION"
+_EXECUTIONTARGET_ = "LOCAL"
 
 QT_executiontarget = "$${LITERAL_HASH}ifndef __EXECUTIONTARGET__H__"
 QT_executiontarget += "$${LITERAL_HASH}define __EXECUTIONTARGET__H__"
