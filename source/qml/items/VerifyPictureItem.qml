@@ -149,11 +149,11 @@ Item{
 
     Button{
         id: deleteButton
-        anchors.top: header.bottom
+        anchors.top: imageProviderSelection.bottom
         anchors.topMargin: 5 * settings.pixelDensity
         anchors.right: parent.right
         anchors.rightMargin: 5 * settings.pixelDensity
-        text: qsTr("DELETE")
+        text: qsTr("DELETE IMAGE")
         visible: false
         onClicked: {
             confirmDeletionDlg.open();
@@ -209,7 +209,8 @@ Item{
 
     Text {
         id: imageProviderText
-        anchors.right: imageProviderSelection.left
+        anchors.left: parent.left
+        anchors.leftMargin: 5 * settings.pixelDensity
         anchors.verticalCenter: imageProviderSelection.verticalCenter
         anchors.rightMargin: 2 * settings.pixelDensity
         text: qsTr("Image Provider")
@@ -219,7 +220,8 @@ Item{
 
     ComboBox{
         id: imageProviderSelection
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: imageProviderText.right
+        anchors.leftMargin: 5 * settings.pixelDensity
         anchors.top: header.bottom
         anchors.topMargin: 5 * settings.pixelDensity
         model: ["all", "labelme"]
