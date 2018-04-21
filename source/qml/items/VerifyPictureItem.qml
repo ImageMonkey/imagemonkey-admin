@@ -207,6 +207,16 @@ Item{
         }
     }
 
+    Text {
+        id: imageProviderText
+        anchors.right: imageProviderSelection.left
+        anchors.verticalCenter: imageProviderSelection.verticalCenter
+        anchors.rightMargin: 2 * settings.pixelDensity
+        text: qsTr("Image Provider")
+        font.pixelSize: 5 * settings.pixelDensity
+
+    }
+
     ComboBox{
         id: imageProviderSelection
         anchors.horizontalCenter: parent.horizontalCenter
@@ -217,6 +227,29 @@ Item{
             internal.imageProvider = imageProviderSelection.textAt(currentIndex);
             resetInternalState();
             restAPI.getAllUnverifiedPictures();
+        }
+    }
+
+    Text {
+        id: orderByText
+        anchors.right: orderBySelection.left
+        anchors.verticalCenter: orderBySelection.verticalCenter
+        anchors.rightMargin: 2 * settings.pixelDensity
+        text: qsTr("Order By")
+        font.pixelSize: 5 * settings.pixelDensity
+
+    }
+
+    ComboBox{
+        id: orderBySelection
+        anchors.right: parent.right
+        anchors.rightMargin: 5 * settings.pixelDensity
+        anchors.top: header.bottom
+        anchors.topMargin: 5 * settings.pixelDensity
+        model: ["asc.", "desc."]
+        onCurrentIndexChanged: {
+            if((internal.unverifiedDonations !== undefined) && (internal.unverifiedDonations !== null))
+                internal.unverifiedDonations = internal.unverifiedDonations.reverse();
         }
     }
 

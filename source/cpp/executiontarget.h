@@ -1,4 +1,4 @@
 #ifndef __EXECUTIONTARGET__H__
 #define __EXECUTIONTARGET__H__
-#define EXECUTIONTARGET ExcecutionTarget::LOCAL
+#define EXECUTIONTARGET ExcecutionTarget::PRODUCTION
 #endif
